@@ -1,5 +1,6 @@
 import { useState} from "react"
 import { AddItemButton } from "./styles"
+import { NewItemForm } from "./NewItemForm"
 
 // • onAdd is a callback function that will be called when we click the Create item
 // button.
@@ -18,6 +19,14 @@ export const AddNewItem = (props: AddNewItemProps) => {
 
   if (showForm) {
     // We show item creation form here
+    return (
+      <NewItemForm
+        onAdd={text => {
+        onAdd(text)
+        setShowForm(false)
+        }}
+      />
+    )
   }
 
   return (
