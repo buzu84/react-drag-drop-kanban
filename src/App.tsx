@@ -6,6 +6,9 @@ interface State {
 
 type Action = { type: "increment" } | { type: "decrement" }
 
+const increment = (): Action => ({ type: "increment" })
+const decrement = (): Action => ({ type: "decrement" })
+
 const counterReducer = (state: State, action: Action) => {
   switch (action.type) {
     case "increment":
@@ -22,10 +25,10 @@ const App = () => {
   return (
     <>
       <p>Count: {state.count}</p>
-      <button onClick={() => dispatch({ type: "decrement" })}>
+      <button onClick={() => dispatch(decrement())}>
         -
-  </button>
-      <button onClick={() => dispatch({ type: "increment" })}>
+      </button>
+      <button onClick={() => dispatch(increment())}>
         +
   </button>
     </>
