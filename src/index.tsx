@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import  App  from './App';
+import App from './App';
 // import {Counter} from './Counter';
+import { AppStateProvider } from "./state/AppStateContext"
 
 ReactDOM.render(
-  
-    <App />
-  ,
+
+  <React.StrictMode>
+    <AppStateProvider>
+      <App />
+    </AppStateProvider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
