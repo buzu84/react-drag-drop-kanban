@@ -29,7 +29,7 @@ const appData: AppState = {
     {
       id: "0",
       text: "To Do",
-      tasks: [{ id: "c0", text: "Generate app scaffold" }]
+      tasks: [{ id: "c0", text: "Advanced React" }]
     },
     {
       id: "1",
@@ -39,7 +39,7 @@ const appData: AppState = {
     {
       id: "2",
       text: "Done",
-      tasks: [{ id: "c3", text: "Begin to use static typing" }]
+      tasks: [{ id: "c3", text: "Unit testing" }]
     }
   ]
 }
