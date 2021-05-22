@@ -2,7 +2,7 @@ import { Action } from './actions'
 import { nanoid } from 'nanoid'
 import {
   findItemIndexById,
-  } from "../utils/arrayUtils"
+} from "../utils/arrayUtils"
 
 export type Task = {
   id: string
