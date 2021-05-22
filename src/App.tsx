@@ -19,7 +19,7 @@ export const App = () => {
   )
 }
 
-// is example of how to think about reducer :)
+// example of how to think about reducer :)
 // import React, { useReducer } from "react"
 // import { useAppState } from "./state/AppStateContext"
 
