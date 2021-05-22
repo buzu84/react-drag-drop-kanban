@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, useReducer, FC } from "react"
+import { createContext, useContext, Dispatch, FC } from "react"
 import {
   appStateReducer,
   AppState,
@@ -6,6 +6,8 @@ import {
   Task
 } from "./appStateReducer"
 import { Action } from './actions'
+import { useImmerReducer } from 'use-immer'
+// library that allows you to mutate an object/it creates a new object instance based on my mutations
 
 
 type AppStateContextProps = {
@@ -39,7 +41,7 @@ const appData: AppState = {
 }
 
 export const AppStateProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(appStateReducer, appData)
+  const [state, dispatch] = useImmerReducer(appStateReducer, appData)
   const { lists } = state
 
   const getTasksByListId = (id: string) => {
