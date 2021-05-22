@@ -4,7 +4,7 @@ import {
   findItemIndexById,
   moveItem
 } from "../utils/arrayUtils"
-
+import { DragItem } from "../DragItem"
 
 export type Task = {
   id: string
@@ -19,6 +19,7 @@ export type List = {
 
 export type AppState = {
   lists: List[]
+  draggedItem: DragItem | null
 }
 
 // I renamed the state into draft, so I know that I can mutate it(use-immer)
