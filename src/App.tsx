@@ -2,9 +2,10 @@ import { Column } from "./Column"
 import { AppContainer } from "./styles"
 import { useAppState } from "./state/AppStateContext"
 import { AddNewItem } from "./AddNewItem"
+import { addList } from "./state/actions"
 
 export const App = () => {
-  const { lists } = useAppState()
+  const { lists, dispatch } = useAppState()
 
   return (
     <AppContainer>
@@ -13,13 +14,13 @@ export const App = () => {
       ))}
       <AddNewItem
         toggleButtonText="+ Add another list"
-        onAdd={console.log}
+        onAdd={text => dispatch(addList(text))}
       />
     </AppContainer>
   )
 }
 
-// is example of how to think about reducer :)
+// example of how to think about reducer :)
 // import React, { useReducer } from "react"
 // import { useAppState } from "./state/AppStateContext"
 
