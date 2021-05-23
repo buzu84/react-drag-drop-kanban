@@ -16,12 +16,19 @@ export const findItemIndexById = <TItem extends Item>(
 
 
 // First I store the item in the item constant. Use the removeItemAtIndex function to remove the item from its original position and then insert it back to the new position using the insertItemAtIndex function.
-export const moveItem = <TItem>(array: TItem[], from: number, to: number) => {
+export const moveItem = <TItem>(
+  array: TItem[],
+  from: number,
+  to: number
+) => {
   const item = array[from]
   return insertItemAtIndex(removeItemAtIndex(array, from), item, to)
 }
 
-export function removeItemAtIndex<TItem>(array: TItem[], index: number) {
+export function removeItemAtIndex<TItem>(
+  array: TItem[],
+  index: number
+) {
   return [...array.slice(0, index), ...array.slice(index + 1)]
 }
 
