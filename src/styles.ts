@@ -10,11 +10,27 @@ export const CustomDragLayerContainer = styled.div`
   width: 100%;
   z-index: 100;
 `
-
 interface DragPreviewContainerProps {
   isHidden?: boolean
   isPreview?: boolean
 }
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number
+    y: number
+  }
+}
+
+// DragPreviewContainerProps component will get the dragged item coordinates from react-dnd and generate the styles with the transform attribute to move the preview around. attrs - this way it will assign the styles attribute to component instead of generating a new class every time the position of the preview changes.
+// DragPreviewWrapperProps typed twice - for attr I am passing and to define the props of resulting component.
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+  })
+) <DragPreviewWrapperProps>``
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
   opacity: ${props => (props.isHidden ? 0 : 1)};
