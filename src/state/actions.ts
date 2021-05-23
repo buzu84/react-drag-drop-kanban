@@ -20,7 +20,17 @@ export type Action =
     type: "SET_DRAGGED_ITEM"
     payload: DragItem | null
   }
-// need to be able to set it to null if not dragging anything
+  // need to be able to set it to null if not dragging anything
+  | {
+    type: "MOVE_TASK"
+    payload: {
+      draggedItemId: string
+      hoveredItemId: string | null
+      sourceColumnId: string
+      targetColumnId: string
+    }
+  }
+// MOVE_TASK needs to know between which columns we are dragging the card.
 
 export const addTask = (
   text: string,
@@ -60,6 +70,20 @@ export const setDraggedItem = (
   payload: draggedItem
 })
 
+export const moveTask = (
+  draggedItemId: string,
+  hoveredItemId: string | null,
+  sourceColumnId: string,
+  targetColumnId: string
+): Action => ({
+  type: "MOVE_TASK",
+  payload: {
+    draggedItemId,
+    hoveredItemId,
+    sourceColumnId,
+    targetColumnId
+  }
+})
 
 // For example, here is an if statement:
 // if (action.type === "ADD_LIST") {
