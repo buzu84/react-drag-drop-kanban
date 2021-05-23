@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, FC } from "react"
+import { createContext, useContext, Dispatch, FC, useEffect } from "react"
 import {
   appStateReducer,
   AppState,
@@ -9,6 +9,7 @@ import { Action } from './actions'
 import { useImmerReducer } from 'use-immer'
 // library that allows you to mutate an object/it creates a new object instance based on my mutations
 import { DragItem } from "../DragItem"
+import { save } from "../api"
 
 
 type AppStateContextProps = {
@@ -34,7 +35,7 @@ const appData: AppState = {
       id: "1",
       text: "In Progress",
       tasks: [{ id: "c2", text: "Learn Typescript" }]
-    }, 
+    },
     {
       id: "2",
       text: "Done",
@@ -50,6 +51,10 @@ export const AppStateProvider: FC = ({ children }) => {
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || []
   }
+
+  useEffect(() => {
+    save(state)
+  }, [state])
 
   return (
     <AppStateContext.Provider value={{ draggedItem, lists, getTasksByListId, dispatch }}>
