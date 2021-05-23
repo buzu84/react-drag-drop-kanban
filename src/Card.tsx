@@ -3,8 +3,10 @@ import { CardContainer } from "./styles"
 type CardProps = {
   text: string
   id: string
-  }
-  
-export const Card = ({ text }: CardProps) => {
+  columnId: string
+  isPreview?: boolean
+}
+
+export const Card = ({ text, id, columnId, isPreview }: CardProps) => {
   return <CardContainer>{text}</CardContainer>
 }
