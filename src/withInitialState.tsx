@@ -6,6 +6,11 @@ type InjectedProps = {
   initialState: AppState
 }
 
+type PropsWithoutInjected<TBaseProps> = Omit<
+  TBaseProps,
+  keyof InjectedProps
+>
+
 // WrappedComponent type - contains the props from the type variable TProps and the props defined in the InjectedProps .
 // TProps is defined as a type argument of our generic function withInitialState
 // Func returns a nameless function component
@@ -13,7 +18,7 @@ type InjectedProps = {
 
 export function withInitialState<TProps>(
   WrappedComponent: ComponentType<
-    TProps & InjectedProps
+    PropsWithoutInjected<TProps> & InjectedProps
   >
 ) {
   return (props: Omit<TProps, keyof InjectedProps>) => {
@@ -24,7 +29,7 @@ export function withInitialState<TProps>(
     // ...
     return (
       <WrappedComponent
-        {...props as TProps}
+        {...props }
         initialState={initialState}
       />
     )
