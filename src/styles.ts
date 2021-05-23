@@ -1,15 +1,52 @@
 import styled from "styled-components"
 
-export const AppContainer = styled.div`
-align-items: flex-start;
-background-color: #3179ba;
-display: flex;
-flex-direction: row;
-height: 100%;
-padding: 20px;
-width: 100%;
+// container component to render the preview - separate layer that will be rendered on top of all the other elements, position: fixed will allows to specify the dragging preview position relative to this container.
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 `
-export const ColumnContainer = styled.div`
+interface DragPreviewContainerProps {
+  isHidden?: boolean
+  isPreview?: boolean
+}
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number
+    y: number
+  }
+}
+
+// DragPreviewContainerProps component will get the dragged item coordinates from react-dnd and generate the styles with the transform attribute to move the preview around. attrs - this way it will assign the styles attribute to component instead of generating a new class every time the position of the preview changes.
+// DragPreviewWrapperProps typed twice - for attr I am passing and to define the props of resulting component.
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+  })
+) <DragPreviewWrapperProps>``
+
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${props => (props.isHidden ? 0 : 1)};
+  transform: ${props => (props.isPreview ? "rotate(5deg)" : undefined)};
+`
+
+export const AppContainer = styled.div`
+  align-items: flex-start;
+  background-color: #3179ba;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 20px;
+  width: 100%;
+`
+export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
   width: 300px;
   min-height: 40px;
@@ -24,7 +61,7 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;

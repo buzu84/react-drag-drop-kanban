@@ -2,7 +2,9 @@ import { Action } from './actions'
 import { nanoid } from 'nanoid'
 import {
   findItemIndexById,
+  moveItem
 } from "../utils/arrayUtils"
+import { DragItem } from "../DragItem"
 
 export type Task = {
   id: string
@@ -17,6 +19,7 @@ export type List = {
 
 export type AppState = {
   lists: List[]
+  draggedItem: DragItem | null
 }
 
 // I renamed the state into draft, so I know that I can mutate it(use-immer)
@@ -40,9 +43,22 @@ export const appStateReducer = (draft: AppState, action: Action): AppState | voi
       })
       break
     }
+    case "MOVE_LIST": {
+      const { draggedId, hoverId } = action.payload
+      const dragIndex = findItemIndexById(draft.lists, draggedId)
+      const hoverIndex = findItemIndexById(draft.lists, hoverId)
+      draft.lists = moveItem(draft.lists, dragIndex, hoverIndex)
+      break
+    }
+    case "SET_DRAGGED_ITEM": {
+      draft.draggedItem = action.payload
+      break
+    }
 
     default: {
       break
     }
   }
 }
+
+// MoveList takes the draggedId and the hoverId from the action payload. Then it calculates the dragged and the hovered columns and then it overrides the draft.lists value with the result of the moveItem function, which takes the source array.

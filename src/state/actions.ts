@@ -1,3 +1,5 @@
+import { DragItem } from "../DragItem"
+
 export type Action =
   | {
     type: "ADD_LIST"
@@ -7,6 +9,18 @@ export type Action =
     type: "ADD_TASK"
     payload: { text: string; listId: string }
   }
+  | {
+    type: "MOVE_LIST"
+    payload: {
+      draggedId: string
+      hoverId: string
+    }
+  }
+  | {
+    type: "SET_DRAGGED_ITEM"
+    payload: DragItem | null
+  }
+// need to be able to set it to null if not dragging anything
 
 export const addTask = (
   text: string,
@@ -24,6 +38,26 @@ export const addList = (
 ): Action => ({
   type: "ADD_LIST",
   payload: text
+})
+
+
+// MoveList action has draggedId and hoverId in its payload. When we start dragging the column, we remember its id and pass it as draggedId . When we hover over other columns we take their ids and use them as a hoverId .
+export const moveList = (
+  draggedId: string,
+  hoverId: string,
+): Action => ({
+  type: "MOVE_LIST",
+  payload: {
+    draggedId,
+    hoverId,
+  }
+})
+
+export const setDraggedItem = (
+  draggedItem: DragItem | null,
+): Action => ({
+  type: "SET_DRAGGED_ITEM",
+  payload: draggedItem
 })
 
 

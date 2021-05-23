@@ -8,9 +8,11 @@ import {
 import { Action } from './actions'
 import { useImmerReducer } from 'use-immer'
 // library that allows you to mutate an object/it creates a new object instance based on my mutations
+import { DragItem } from "../DragItem"
 
 
 type AppStateContextProps = {
+  draggedItem: DragItem | null
   lists: List[]
   getTasksByListId(id: string): Task[]
   dispatch: Dispatch<Action>
@@ -21,6 +23,7 @@ const AppStateContext = createContext<AppStateContextProps>(
 )
 
 const appData: AppState = {
+  draggedItem: null,
   lists: [
     {
       id: "0",
@@ -42,14 +45,14 @@ const appData: AppState = {
 
 export const AppStateProvider: FC = ({ children }) => {
   const [state, dispatch] = useImmerReducer(appStateReducer, appData)
-  const { lists } = state
+  const { draggedItem, lists } = state
 
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || []
   }
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
+    <AppStateContext.Provider value={{ draggedItem, lists, getTasksByListId, dispatch }}>
       {children}
     </AppStateContext.Provider>
   )
