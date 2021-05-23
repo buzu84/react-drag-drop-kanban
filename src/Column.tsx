@@ -29,7 +29,6 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState()
   const tasks = getTasksByListId(id)
   const ref = useRef<HTMLDivElement>(null)
-
   const [, drop] = useDrop({
     accept: ["COLUMN", "CARD"],
     hover() {
@@ -40,6 +39,7 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
         if (draggedItem.id === id) {
           return
         }
+
         dispatch(moveList(draggedItem.id, id))
       } else {
         if (draggedItem.columnId === id) {
@@ -48,12 +48,11 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
         if (tasks.length) {
           return
         }
+
         dispatch(
           moveTask(draggedItem.id, null, draggedItem.columnId, id)
         )
-        dispatch(
-          setDraggedItem({ ...draggedItem, columnId: id })
-        )
+        dispatch(setDraggedItem({ ...draggedItem, columnId: id }))
       }
     }
   })
@@ -63,14 +62,23 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
   drag(drop(ref))
 
   return (
-    <ColumnContainer isPreview={isPreview} ref={ref} isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)} >
+    <ColumnContainer
+      isPreview={isPreview}
+      ref={ref}
+      isHidden={isHidden(isPreview, draggedItem, "COLUMN", id)}
+    >
       <ColumnTitle>{text}</ColumnTitle>
-      {tasks.map(task => (
-        <Card text={task.text} key={task.id} id={task.id} columnId={id} />
+      {tasks.map((task) => (
+        <Card
+          id={task.id}
+          columnId={id}
+          text={task.text}
+          key={task.id}
+        />
       ))}
       <AddNewItem
-        toggleButtonText="+ Add another task"
-        onAdd={text => dispatch(addTask(text, id))}
+        toggleButtonText="+ Add another card"
+        onAdd={(text) => dispatch(addTask(text, id))}
         dark
       />
     </ColumnContainer>

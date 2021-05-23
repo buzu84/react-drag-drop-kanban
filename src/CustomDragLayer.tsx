@@ -22,21 +22,23 @@ export const CustomDragLayer = () => {
     currentOffset: monitor.getSourceClientOffset()
   }))
   return draggedItem && currentOffset ? (
-    <DragPreviewWrapper position={currentOffset}>
-      {draggedItem.type === "COLUMN" ? (
-        <Column
-          id={draggedItem.id}
-          text={draggedItem.text}
-          isPreview
-        />
-      ) : (
-        <Card
-          columnId={draggedItem.columnId}
-          isPreview
-          id={draggedItem.id}
-          text={draggedItem.text}
-        />
-      )}
-    </DragPreviewWrapper>
+    <CustomDragLayerContainer>
+      <DragPreviewWrapper position={currentOffset}>
+        {draggedItem.type === "COLUMN" ? (
+          <Column
+            id={draggedItem.id}
+            text={draggedItem.text}
+            isPreview
+          />
+        ) : (
+          <Card
+            columnId={draggedItem.columnId}
+            isPreview
+            id={draggedItem.id}
+            text={draggedItem.text}
+          />
+        )}
+      </DragPreviewWrapper>
+    </CustomDragLayerContainer>
   ) : null
 }
