@@ -54,6 +54,35 @@ export const appStateReducer = (draft: AppState, action: Action): AppState | voi
       draft.draggedItem = action.payload
       break
     }
+    // case "MOVE_TASK": {
+      // --- destructure the action.payload => 
+      // const {
+      //   draggedItemId,
+      //   hoveredItemId,
+      //   sourceColumnId,
+      //   targetColumnId
+      // } = action.payload
+      // --- get the source and target list indices =>
+      //   const sourceListIndex = findItemIndexById(
+      //     draft.lists,
+      //     sourceColumnId
+      //   )
+      //   const targetListIndex = findItemIndexById(
+      //     draft.lists,
+      //     targetColumnId
+      //   )
+      // --- find the indices of the dragged and hovered items
+      // const dragIndex = findItemIndexById(
+      //   draft.lists[sourceListIndex].tasks,
+      //   draggedItemId
+      // )
+      // const hoverIndex = hoveredItemId
+      //   ? findItemIndexById(
+      //     draft.lists[targetListIndex].tasks,
+      //     hoveredItemId
+      //   )
+      //   : 0
+    // }
 
     default: {
       break
