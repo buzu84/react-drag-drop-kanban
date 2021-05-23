@@ -1,5 +1,16 @@
 import styled from "styled-components"
 
+// container component to render the preview - separate layer that will be rendered on top of all the other elements, position: fixed will allows to specify the dragging preview position relative to this container.
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+`
+
 interface DragPreviewContainerProps {
   isHidden?: boolean
 }
@@ -9,13 +20,13 @@ export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
 `
 
 export const AppContainer = styled.div`
-align-items: flex-start;
-background-color: #3179ba;
-display: flex;
-flex-direction: row;
-height: 100%;
-padding: 20px;
-width: 100%;
+  align-items: flex-start;
+  background-color: #3179ba;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 20px;
+  width: 100%;
 `
 export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
