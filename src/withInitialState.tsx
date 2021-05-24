@@ -1,6 +1,7 @@
 import { useState, useEffect, ComponentType } from "react"
 import { AppState } from "./state/appStateReducer"
 import { load } from "./api"
+import { Spinner } from "./Spinner"
 
 // define a type that will represent the props that have been injected.
 type InjectedProps = {
@@ -45,7 +46,7 @@ export function withInitialState<TProps>(
       fetchInitialState()
     }, [])
     if (isLoading) {
-      return <div>Loading</div>
+      return <Spinner />
     }
     if (error) {
       return <div>{error.message}</div>
